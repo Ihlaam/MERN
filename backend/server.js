@@ -1,26 +1,45 @@
 //import to use .env
 require('dotenv').config()
 
-//require express package which node is using
+//packages
 const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const fs = require('fs');
 const https = require('https');
 const path = require('path');
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+
+//imports
 const bookRoutes = require('./routes/bookRouter')
 const userRoutes = require('./routes/userRouter')
 
-//create express app by invoking a function
+//create express app
 const app = express()
-app.use(express.json());
-
 
 //middleware
+app.use(express.json());
+app.use(cookieParser())
+
+
+// Setup CSRF middleware
+app.use(csrf({ 
+  cookie: { 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: 'Lax' 
+  } 
+}))
+
+//middleware to expose CSRF token in response
 app.use((req, res, next) => { 
+    res.locals.csrfToken = req.csrfToken() //expose the token to be used in views or API requests
     console.log(req.path, req.method) 
     next()
 })
+
+
 // app.use(
 //     helmet({
 //       xFrameOptions: { action: "deny" },
