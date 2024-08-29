@@ -32,6 +32,12 @@ app.use(csrf({
   } 
 }))
 
+
+//test to get the csrf token since we don't have login yet
+app.get('/api/csrf-token', (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
+
 //middleware to expose CSRF token in response
 app.use((req, res, next) => { 
     res.locals.csrfToken = req.csrfToken() //expose the token to be used in views or API requests
