@@ -8,8 +8,8 @@ const helmet = require('helmet')
 const fs = require('fs');
 const https = require('https');
 const path = require('path');
-const csrf = require('csurf');
-const cookieParser = require('cookie-parser');
+// const csrf = require('csurf');
+// const cookieParser = require('cookie-parser');
 
 //imports
 const bookRoutes = require('./routes/bookRouter')
@@ -20,30 +20,30 @@ const app = express()
 
 //middleware
 app.use(express.json());
-app.use(cookieParser())
+//app.use(cookieParser())
 
 
-// Setup CSRF middleware
-app.use(csrf({ 
-  cookie: { 
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'Lax' 
-  } 
-}))
+// // Setup CSRF middleware
+// app.use(csrf({ 
+//   cookie: { 
+//       httpOnly: true, 
+//       secure: process.env.NODE_ENV === 'production', 
+//       sameSite: 'Lax' 
+//   } 
+// }))
 
 
-//test to get the csrf token since we don't have login yet
-app.get('/api/csrf-token', (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
-});
+// //test to get the csrf token since we don't have login yet
+// app.get('/api/csrf-token', (req, res) => {
+//   res.json({ csrfToken: req.csrfToken() });
+// });
 
-//middleware to expose CSRF token in response
-app.use((req, res, next) => { 
-    res.locals.csrfToken = req.csrfToken() //expose the token to be used in views or API requests
-    console.log(req.path, req.method) 
-    next()
-})
+// //middleware to expose CSRF token in response
+// app.use((req, res, next) => { 
+//     res.locals.csrfToken = req.csrfToken() //expose the token to be used in views or API requests
+//     console.log(req.path, req.method) 
+//     next()
+// })
 
 
 // app.use(

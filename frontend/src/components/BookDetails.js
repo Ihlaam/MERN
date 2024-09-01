@@ -1,7 +1,17 @@
-const BookDetails = ({book, deleteBook}) => { 
+import { useBooksContext } from "../hooks/useBooksContext"
 
-    const handleClick = () => {
-        deleteBook(book._id)
+const BookDetails = ({ book }) => {
+    const { dispatch } = useBooksContext()
+
+    const handleClick = async () => {
+        const response = await fetch('api/books/' + book._id, {
+            method: 'DELETE'
+        })
+        const json = await response.json()
+
+        if(response.ok){
+            dispatch({type: 'DELETE_BOOK', payload: json})
+        }
     }
 
     return (
