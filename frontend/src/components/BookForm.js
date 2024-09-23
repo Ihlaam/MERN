@@ -7,6 +7,7 @@ const BookForm = () => {
     const[author, setAuthor] = useState('')
     const[quantity, setQuantity] = useState('')
     const[error, setError] = useState(null)
+    const[emptyFields, setEmptyFields] = useState([])
 
 
     const handleSubmit = async(e) => {
@@ -26,12 +27,14 @@ const BookForm = () => {
 
         if(!response.ok){
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
         if(response.ok){
             setTitle('')
             setAuthor('')
             setQuantity('')
             setError(null)
+            setEmptyFields([])
             console.log("New book added", json)
             dispatch({type: 'CREATE_BOOK', payload: json})
         }
@@ -46,13 +49,15 @@ const BookForm = () => {
                 type="text"
                 onChange={(e) => setTitle(e.target.value)} 
                 value={title}    
+                className={emptyFields.includes('title') ? 'error' : ''} //if this field includes a title we add it to a class, if not we give it an empty class
                 />
 
             <label>Book Author:</label>
             <input
                 type="text"
                 onChange={(e) => setAuthor(e.target.value)} 
-                value={author}    
+                value={author}  
+                className={emptyFields.includes('author') ? 'error' : ''}   
                 />
 
             <label>Book Quantity:</label>
@@ -60,6 +65,7 @@ const BookForm = () => {
                 type="number"
                 onChange={(e) => setQuantity(e.target.value)} 
                 value={quantity}    
+                className={emptyFields.includes('quantity') ? 'error' : ''} 
                 />
             <button>Add Book</button>   
             {error && <div className='error'>{error}</div>}        

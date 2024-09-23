@@ -5,7 +5,7 @@
 :root {
   --primary: #46329d85;  /* Purple */
   --secondary: #573ec385; /* Blue */
-  --error: #d9301d; /* Red */
+  --error: #a11b0c; /* Red */
   --background: #ecf0f1; /* Light grey */
   --header-bg: #eee1e1; /* White */
   --text-color: #2c3e50; 
@@ -100,7 +100,6 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 2px 5px 5px rgba(0,0,0,0.1);
-
 }
 form button{
   background: var(--primary);
@@ -118,4 +117,33 @@ div.error{
   border-radius: 4px;
   margin: 20px 0;
 }
+input.error {
+  border: 1px solid var(--error)
+}
 
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  margin-left: 10px;
+}
+
+nav button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Lora";
+  cursor: pointer;
+  font-size: 1em;
+}
+
+form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}

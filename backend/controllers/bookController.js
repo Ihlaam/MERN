@@ -27,6 +27,24 @@ const getBook = async (req, res) => {
 //create new book
 const createBook = async (req, res) => {
     const {title, author, quantity} = req.body
+
+    let emptyFields = []
+
+    if(!title) {
+        emptyFields.push('title')
+    }
+    if(!author) {
+        emptyFields.push('author')
+    }
+    if(!quantity) {
+        emptyFields.push('quantity')
+    }
+    if(emptyFields.length > 0)
+    {
+        return res.status(400).json({error: "Please fill in all fields", emptyFields})
+    }
+
+
     //add doc to db
     try {
         const book = await Book.create({title, author, quantity})

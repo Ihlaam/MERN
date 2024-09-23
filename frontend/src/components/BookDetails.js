@@ -1,5 +1,8 @@
 import { useBooksContext } from "../hooks/useBooksContext"
 
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
+
 const BookDetails = ({ book }) => {
     const { dispatch } = useBooksContext()
 
@@ -18,11 +21,13 @@ const BookDetails = ({ book }) => {
         <div className="book-details">
             <h4>{book.title}</h4>
             <p><strong>Author: </strong>{book.author}</p>
-            <p><strong>Quantity: </strong>{book.quantity}</p>
-            <p>{book.createdAt}</p>
-            <span onClick={handleClick}>delete</span>
+            <p><strong>Quantity: </strong>{book.quantity}</p> 
+            <p>{formatDistanceToNow(new Date(book.createdAt), { addSuffix: true})}</p> 
+            <span className="material-symbols-outlined" onClick={handleClick}>remove</span>
         </div>
     )
  }
 
  export default BookDetails
+
+ 

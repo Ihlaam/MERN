@@ -1,5 +1,5 @@
 const express = require('express')
-const { loginUser, signupUser, logoutUser} = require('../controllers/userController')
+const { loginUser, signupUser, logoutUser, getUsers} = require('../controllers/userController')
 const router = express.Router()
 
 const ExpressBrute = require('express-brute');
@@ -12,6 +12,8 @@ const bruteForce = new ExpressBrute(store, {
     lifetime: 1000 * 60 * 10, // 10 minutes lifetime
 });
 
+router.get('/users', getUsers)
+
 router.post('/login', bruteForce.prevent, loginUser)
 
 router.post('/signup', signupUser)
@@ -20,3 +22,10 @@ router.get('/logout', logoutUser)
 
 //export routes
 module.exports = router
+
+
+// {
+//     "email": "laam@demo.com",
+//     "password": "laaM123!"
+    
+// }

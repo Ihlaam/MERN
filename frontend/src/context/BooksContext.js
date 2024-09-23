@@ -10,7 +10,7 @@ export const booksReducer = (state, action) => {
             }
         case 'CREATE_BOOK':
             return {
-                books: [action.payload, ...state.books]     //we want to return a new array, and the rest of the workout data so we call the previous state in
+                books: [action.payload, ...state.books]     //we want to return a new array, and the rest of the book data so we call the previous state in
             }  
         case 'DELETE_BOOK':
             return {
