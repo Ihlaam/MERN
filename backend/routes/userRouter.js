@@ -22,10 +22,3 @@ router.get('/logout', logoutUser)
 
 //export routes
 module.exports = router
-
-
-// {
-//     "email": "laam@demo.com",
-//     "password": "laaM123!"
-    
-// }
